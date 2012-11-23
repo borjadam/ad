@@ -24,14 +24,15 @@ public partial class MainWindow: Gtk.Window
 		String connectionString = 
 			"Server= localhost; Database= dbprueba; User Id=dbprueba; Password = 12345";
 		IDbConnection dbConnection = new NpgsqlConnection(connectionString);
+		dbConnection.Open();
 		
 		IDbCommand dbCommand = dbConnection.CreateCommand();
-		dbCommand.CommandText= "select id, nombre from categoria";
+		dbCommand.CommandText= "select id, nombres from categoria";
 		
 		IDataReader dataReader = dbCommand.ExecuteReader();
 		
 		while (dataReader.Read()) {
-			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombre"].ToString());
+			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombres"].ToString());
 		}
 		
 		dataReader.Close();
