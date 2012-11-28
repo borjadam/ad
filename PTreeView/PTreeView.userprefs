@@ -1,16 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PTreeView/MainWindow.cs">
     <Files>
-      <File FileName="MainWindow.cs" Line="17" Column="43" />
+      <File FileName="PTreeView/Main.cs" Line="1" Column="1" />
+      <File FileName="PTreeView/MainWindow.cs" Line="23" Column="42" />
     </Files>
-    <Pads>
-      <Pad Id="ConnectionManagerPad">
-        <State expanded="True" selected="True">
-          <Node name="postgres" expanded="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
