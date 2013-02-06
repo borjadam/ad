@@ -37,6 +37,9 @@ public partial class MainWindow: Gtk.Window
 		
 		listStore.AppendValues("1", "Uno");
 		listStore.AppendValues("2", "Dos");
+		listStore.AppendValues("3", "Tres");
+		listStore.AppendValues("4", "Cuatro");
+		listStore.AppendValues("5", "Cinco");
 		
 		combobox.Changed += delegate {
 			

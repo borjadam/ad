@@ -14,7 +14,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 		
-		string connectionString = "Server=localhost;Database=dbprueba;User Id=dbprueba;Password=12345";
+		string connectionString = "Server=localhost; Database=dbprueba; User Id=dbprueba; Password=12345";
 		ApplicationContext.Instance.DbConnection = new NpgsqlConnection(connectionString);
 		dbConnection = ApplicationContext.Instance.DbConnection;
 		dbConnection.Open ();
@@ -52,7 +52,9 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnEditActionActivated (object sender, System.EventArgs e)
 	{
-		showArticulo ( getSelectedId() );
+		long id = getSelectedId();
+		ArticuloView articuloView = new ArticuloView(id);
+		articuloView.Show ();
 	}
 	
 	private long getSelectedId() {
@@ -63,14 +65,26 @@ public partial class MainWindow: Gtk.Window
 		return long.Parse (listStore.GetValue (treeIter, 0).ToString ()); 
 	}
 
-	protected void OnNewActionActivated (object sender, System.EventArgs e)
+	protected void OnRefreshActionActivated (object sender, System.EventArgs e)
 	{
-		showArticulo (0); 
-	}
-	
-	private void showArticulo(long id)
-	{
-		ArticuloView articuloView = new ArticuloView( id );
-		articuloView.Show ();
+		string connectionString = "Server=localhost; Database=dbprueba; User Id=dbprueba; Password=12345";
+		ApplicationContext.Instance.DbConnection = new NpgsqlConnection(connectionString);
+		dbConnection = ApplicationContext.Instance.DbConnection;
+		dbConnection.Open ();
+		
+		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		dbCommand.CommandText = 
+			"select a.id, a.nombre, a.precio, categoria " +
+			"from articulo a left join categoria c " +
+			"on a.categoria = c.id";
+		
+		IDataReader dataReader = dbCommand.ExecuteReader ();
+		
+		TreeViewExtensions.Fill (treeView, dataReader);
+		dataReader.Close ();
+		
+		dataReader = dbCommand.ExecuteReader ();
+		TreeViewExtensions.Fill (treeView, dataReader);
+		dataReader.Close ();
 	}
 }

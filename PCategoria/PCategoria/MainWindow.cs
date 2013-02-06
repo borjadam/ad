@@ -2,47 +2,74 @@ using System;
 using Gtk;
 using System.Data;
 using Npgsql;
+using System.Collections.Generic;
+using PCategoria;
 
 public partial class MainWindow: Gtk.Window
 {	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
-		fillComboBox();
-	}
-	
-	private void fillComboBox() {
-		
-		CellRenderer cellRenderer = new CellRendererText();
-		comboBox.PackStart(cellRenderer, false);
-		comboBox.AddAttribute(cellRenderer, "text", 1);
-		
-		ListStore listStore = new ListStore(typeof(string), typeof(string));
-		
-		comboBox.Model = listStore;
-		
-		String connectionString = 
-			"Server= localhost; Database= dbprueba; User Id=dbprueba; Password = 12345";
-		IDbConnection dbConnection = new NpgsqlConnection(connectionString);
-		dbConnection.Open();
-		
-		IDbCommand dbCommand = dbConnection.CreateCommand();
-		dbCommand.CommandText= "select id, nombres from categoria";
-		
-		IDataReader dataReader = dbCommand.ExecuteReader();
-		
-		while (dataReader.Read()) {
-			listStore.AppendValues(dataReader["id"].ToString(), dataReader["nombres"].ToString());
-		}
-		
-		dataReader.Close();
-		dbConnection.Close();
-		
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
 		Application.Quit ();
 		a.RetVal = true;
+	}
+
+	protected void OnButton1Clicked (object sender, System.EventArgs e)
+	{
+		TreeViewColumn[] treeViewColumns = treeView.Columns;
+		foreach (TreeViewColumn treeViewColumn in treeViewColumns) {
+			treeView.RemoveColumn(treeViewColumn);
+		}
+		
+		NpgsqlConnection connection = new NpgsqlConnection
+				("Server= localhost; Database= dbprueba; User Id=dbprueba; Password = 12345");
+			connection.Open();
+		
+		string sentencia = campoSentencia.Text;
+		
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = sentencia;
+		IDataReader datareader = command.ExecuteReader();
+		
+		//treeView.AppendColumn (datareader.GetName(0), new CellRendererText (), "text", 0);
+		//treeView.AppendColumn (datareader.GetName(1), new CellRendererText (), "text", 1);
+		
+		//manera de nombrar las columnas
+		for (int i = 0; i < datareader.FieldCount; i++){
+			treeView.AppendColumn(datareader.GetName(i), new CellRendererText (), "text", i);
+		}
+		//
+		
+		//manera de crear los tipos
+		//Type[] types = TypeExtensions.GetTypes (typeof(string), datareader.FieldCount);
+		
+		//sin crear un metodo aparte
+		
+		Type[] types = new Type[ datareader.FieldCount ];
+		for (int index = 0; index < datareader.FieldCount; index++){
+			types[index] = typeof(string);
+		}
+		
+		ListStore listStore = new ListStore(types);
+		//
+		
+		treeView.Model = listStore;
+		
+		
+		while(datareader.Read() ) {
+			string[] values = new string [datareader.FieldCount];
+			
+			for (int index = 0; index < datareader.FieldCount; index++) {
+				values[index] = datareader[index].ToString();				
+			}
+			
+			listStore.AppendValues (values);	
+		}
+		datareader.Close();
+		connection.Close();
 	}
 }

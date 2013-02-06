@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Debug/PGtk.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="569 464">
+    <action-group name="Default">
+      <action id="NuevoAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Nuevo</property>
+        <property name="ShortLabel" translatable="yes">Nuevo</property>
+      </action>
+      <action id="AbrirAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Abrir</property>
+        <property name="ShortLabel" translatable="yes">Abrir</property>
+      </action>
+      <action id="ArchivoAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Archivo</property>
+        <property name="ShortLabel" translatable="yes">Archivo</property>
+      </action>
+      <action id="EditarAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Editar</property>
+        <property name="ShortLabel" translatable="yes">Editar</property>
+      </action>
+      <action id="FormatoAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Formato</property>
+        <property name="ShortLabel" translatable="yes">Formato</property>
+      </action>
+      <action id="SalirAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Salir</property>
+        <property name="ShortLabel" translatable="yes">Salir</property>
+      </action>
+      <action id="newAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-new</property>
+        <signal name="Activated" handler="OnNewActionActivated" />
+      </action>
+      <action id="openAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-open</property>
+        <signal name="Activated" handler="OnOpenActionActivated" />
+      </action>
+      <action id="saveAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-save</property>
+      </action>
+      <action id="quitAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-quit</property>
+        <signal name="Activated" handler="OnQuitActionActivated" />
+      </action>
+      <action id="newAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Nuevo</property>
+        <property name="ShortLabel" translatable="yes">_Nuevo</property>
+        <property name="StockId">gtk-new</property>
+        <signal name="Activated" handler="OnNewAction1Activated" />
+      </action>
+      <action id="openAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Abrir</property>
+        <property name="ShortLabel" translatable="yes">_Abrir</property>
+        <property name="StockId">gtk-open</property>
+        <signal name="Activated" handler="OnOpenAction1Activated" />
+      </action>
+      <action id="saveAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Guardar</property>
+        <property name="ShortLabel" translatable="yes">_Guardar</property>
+        <property name="StockId">gtk-save</property>
+      </action>
+      <action id="saveAsAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Guardar co_mo</property>
+        <property name="ShortLabel" translatable="yes">Guardar co_mo</property>
+        <property name="StockId">gtk-save-as</property>
+      </action>
+      <action id="cutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Cor_tar</property>
+        <property name="ShortLabel" translatable="yes">Cor_tar</property>
+        <property name="StockId">gtk-cut</property>
+      </action>
+      <action id="copyAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Copiar</property>
+        <property name="ShortLabel" translatable="yes">_Copiar</property>
+        <property name="StockId">gtk-copy</property>
+      </action>
+      <action id="pasteAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Pegar</property>
+        <property name="ShortLabel" translatable="yes">_Pegar</property>
+        <property name="StockId">gtk-paste</property>
+      </action>
+      <action id="boldAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Negrita</property>
+        <property name="ShortLabel" translatable="yes">_Negrita</property>
+        <property name="StockId">gtk-bold</property>
+      </action>
+      <action id="italicAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Cursiva</property>
+        <property name="ShortLabel" translatable="yes">_Cursiva</property>
+        <property name="StockId">gtk-italic</property>
+      </action>
+      <action id="underlineAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Subrayar</property>
+        <property name="ShortLabel" translatable="yes">_Subrayar</property>
+        <property name="StockId">gtk-underline</property>
+      </action>
+      <action id="selectFontAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Tipografía</property>
+        <property name="ShortLabel" translatable="yes">_Tipografía</property>
+        <property name="StockId">gtk-select-font</property>
+      </action>
+      <action id="ArialAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Arial</property>
+        <property name="ShortLabel" translatable="yes">Arial</property>
+      </action>
+      <action id="ComicSansAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Comic Sans</property>
+        <property name="ShortLabel" translatable="yes">Comic Sans</property>
+      </action>
+      <action id="quitAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Salir</property>
+        <property name="ShortLabel" translatable="yes">_Salir</property>
+        <property name="StockId">gtk-quit</property>
+      </action>
+      <action id="quitAction2">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Salir</property>
+        <property name="ShortLabel" translatable="yes">_Salir</property>
+        <property name="StockId">gtk-quit</property>
+      </action>
+    </action-group>
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">Editor de textos</property>
+    <property name="Icon">stock:gtk-edit Menu</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.VBox" id="vbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.MenuBar" id="menubar1">
+            <property name="MemberName" />
+            <node name="__gtksharp_106_Stetic_Editor_ActionMenuBar" type="Menubar">
+              <node type="Menu" action="ArchivoAction">
+                <node type="Menuitem" action="newAction1" />
+                <node type="Menuitem" action="openAction1" />
+                <node type="Menuitem" action="saveAction1" />
+                <node type="Menuitem" action="saveAsAction" />
+                <node type="Menuitem" action="quitAction2" />
+              </node>
+              <node type="Menu" action="EditarAction">
+                <node type="Menuitem" action="cutAction" />
+                <node type="Menuitem" action="copyAction" />
+                <node type="Menuitem" action="pasteAction" />
+              </node>
+              <node type="Menu" action="FormatoAction">
+                <node type="Menuitem" action="boldAction" />
+                <node type="Menuitem" action="italicAction" />
+                <node type="Menuitem" action="underlineAction" />
+                <node type="Menu" action="selectFontAction">
+                  <node type="Menuitem" action="ArialAction" />
+                  <node type="Menuitem" action="ComicSansAction" />
+                </node>
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Toolbar" id="toolbar1">
+            <property name="MemberName" />
+            <property name="ShowArrow">False</property>
+            <property name="ButtonStyle">Both</property>
+            <property name="IconSize">Menu</property>
+            <node name="__gtksharp_107_Stetic_Editor_ActionToolbar" type="Toolbar">
+              <node type="Toolitem" action="newAction" />
+              <node type="Toolitem" action="openAction" />
+              <node type="Toolitem" action="saveAction" />
+              <node type="Toolitem" action="quitAction" />
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+            <property name="MemberName" />
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TextView" id="campoTexto">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+                <property name="Text" translatable="yes" />
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>
