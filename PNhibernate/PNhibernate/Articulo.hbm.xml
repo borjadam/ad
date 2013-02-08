@@ -11,7 +11,7 @@
 		</id>			
 		<property name="Nombre"/>
 		<property name="Precio"/>
-		<property name="Categoria"/>
+		<many-to-one name="Categoria"/>
 		
 		
 	  </class>

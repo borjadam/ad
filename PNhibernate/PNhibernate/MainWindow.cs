@@ -4,6 +4,7 @@ using NHibernate.Cfg;
 using Serpis.Ad;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate;
+using Npgsql;
 
 public partial class MainWindow: Gtk.Window
 {	
@@ -16,11 +17,12 @@ public partial class MainWindow: Gtk.Window
 		configuration.SetProperty(NHibernate.Cfg.Environment.Hbm2ddlKeyWords, "none");
 		configuration.AddAssembly(typeof (Categoria).Assembly);
 		
-		//new SchemaExport(configuration).Execute(true, false, false);
+		new SchemaExport(configuration).Execute(true, false, false);
 		
 		ISessionFactory sessionFactory = configuration.BuildSessionFactory();
 		
-		loadArticulo(sessionFactory);
+		insertCategoria(sessionFactory);
+		
 		
 		sessionFactory.Close();
 
@@ -33,6 +35,11 @@ public partial class MainWindow: Gtk.Window
 		Articulo articulo = (Articulo)session.Load(typeof(Articulo), 2L);
 		Console.WriteLine("Articulo Id={0} Nombre={1} Precio={2}", 
 			                  articulo.Id, articulo.Nombre, articulo.Precio);
+			if(articulo.Categoria == null) {
+				Console.WriteLine("CategoriaNull");
+			} else {
+				Console.WriteLine("Categoria.Nombre={0}", articulo.Categoria.Nombre);
+			}
 		}
 		
 	}
