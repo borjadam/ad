@@ -20,12 +20,20 @@ public partial class MainWindow: Gtk.Window
 		
 		ISessionFactory sessionFactory = configuration.BuildSessionFactory();
 		
-		updateCategoria(sessionFactory);
-		
-		insertCategoria(sessionFactory);
+		loadArticulo(sessionFactory);
 		
 		sessionFactory.Close();
 
+		
+	}
+	
+	private void loadArticulo(ISessionFactory sessionFactory){
+		
+		using (ISession session = sessionFactory.OpenSession()){
+		Articulo articulo = (Articulo)session.Load(typeof(Articulo), 2L);
+		Console.WriteLine("Articulo Id={0} Nombre={1} Precio={2}", 
+			                  articulo.Id, articulo.Nombre, articulo.Precio);
+		}
 		
 	}
 	
@@ -33,26 +41,31 @@ public partial class MainWindow: Gtk.Window
 	private void updateCategoria(ISessionFactory sessionFactory){
 		ISession session = sessionFactory.OpenSession();
 		
-		Categoria categoria = (Categoria)session.Load(typeof(Categoria), 2L);	
-		Console.WriteLine("Categoria Id={0} Nombre{1}", categoria.Id, categoria.Nombre);
-		categoria.Nombre = DateTime.Now.ToString();
-		session.SaveOrUpdate(categoria);
+		try {
+			Categoria categoria = (Categoria)session.Load(typeof(Categoria), 2L);	
+			Console.WriteLine("Categoria Id={0} Nombre{1}", categoria.Id, categoria.Nombre);
+			categoria.Nombre = DateTime.Now.ToString();
+			session.SaveOrUpdate(categoria);
 				
-		session.Flush();
+			session.Flush();
 		
-		session.Close();		
+		} finally {
+			session.Close();
+		}
 	}
 	
 	private void insertCategoria(ISessionFactory sessionFactory){
 		ISession session = sessionFactory.OpenSession();		
 		
-		Categoria categoria = new Categoria();
-		categoria.Nombre = "Nueva " + DateTime.Now.ToString();
-		session.SaveOrUpdate(categoria);
-				
-		session.Flush();
-		
-		session.Close();
+		try {
+			Categoria categoria = new Categoria();
+			categoria.Nombre = "Nueva " + DateTime.Now.ToString();
+			session.SaveOrUpdate(categoria);
+					
+			session.Flush();
+		} finally {		
+			session.Close();
+		}
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
