@@ -5,6 +5,7 @@ using Serpis.Ad;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate;
 using Npgsql;
+using System.Collections;
 
 public partial class MainWindow: Gtk.Window
 {	
@@ -12,17 +13,26 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 		
+
 		Configuration configuration = new Configuration();
-		configuration.Configure();
+		configuration.Configure ();
 		configuration.SetProperty(NHibernate.Cfg.Environment.Hbm2ddlKeyWords, "none");
-		configuration.AddAssembly(typeof (Categoria).Assembly);
+		configuration.AddAssembly(typeof(Categoria).Assembly);
 		
 		new SchemaExport(configuration).Execute(true, false, false);
 		
-		ISessionFactory sessionFactory = configuration.BuildSessionFactory();
+		ISessionFactory sessionFactory = configuration.BuildSessionFactory ();
 		
-		insertCategoria(sessionFactory);
+		//insertCategoria(sessionFactory);
 		
+		using (ISession session = sessionFactory.OpenSession()) {
+			ICriteria criteria = session.CreateCriteria(typeof(Categoria));
+			IList list = criteria.List();
+			
+			foreach (Categoria categoria in list) {
+				Console.WriteLine("Categoria Id={0} Nombre={1}", categoria.Id, categoria.Nombre);
+			}
+		} 	
 		
 		sessionFactory.Close();
 
